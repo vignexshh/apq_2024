@@ -46,10 +46,3 @@ neet-ug-2024-ap-results-viewer/
 └── README.md              # Project description and setup instructions
 ```
 
-## License
-
-This project is licensed under the MIT License.
-
----
-
-Feel free to modify this description to better suit your project's specifics and add any additional details you think are necessary.
