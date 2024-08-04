@@ -2,6 +2,9 @@ import streamlit as st
 import sqlite3
 import pandas as pd
 
+# Set page configuration to wide mode
+st.set_page_config(layout="wide")
+
 def fetch_data(query, db_file='neet_candidates.db'):
     with sqlite3.connect(db_file) as conn:
         df = pd.read_sql_query(query, conn)
@@ -43,13 +46,17 @@ def main():
         Cut off Marks for Eligibility to apply for admission into UG Medical/Dental courses-2024-25
     """)
 
-    score = st.number_input("Enter Score", min_value=0, step=1)
-    gender = st.selectbox("Select Gender", ["None", "Male", "Female"])
-    category = st.selectbox("Select Category", [
-        "None", "UR/EWS", "OBC-(NCL) As Per Central List", "SC", "ST", 
-        "UR / EWS & PwBD", "OBC & PwBD", "SC & PwBD", "ST & PwBD"
-    ])
-    neet_roll_no = st.text_input("Neet Roll Number (Eg String : 1203040193)")
+    # Create columns
+    col1, col2 = st.columns(2)
+
+    with col1:
+        score = st.number_input("Enter Score", min_value=0, step=1)
+        gender = st.selectbox("Select Gender", ["None", "Male", "Female"])
+        category = st.selectbox("Select Category", [
+            "None", "UR/EWS", "OBC-(NCL) As Per Central List", "SC", "ST", 
+            "UR / EWS & PwBD", "OBC & PwBD", "SC & PwBD", "ST & PwBD"
+        ])
+        neet_roll_no = st.text_input("Neet Roll Number (Eg String : 1203040193)")
 
     query = "SELECT * FROM neet_candidates WHERE 1=1"
     if score:
@@ -62,7 +69,16 @@ def main():
         query += f" AND neet_roll_no = '{neet_roll_no}'"
 
     df = fetch_data(query)
-    st.write(df)
+    
+    # Drop the candidate_name column
+    if 'candidate_name' in df.columns:
+        df = df.drop(columns=['candidate_name'])
+    
+    # Adjust the index to start from 1
+    df.index = df.index + 1
+    
+    with col2:
+        st.write(df)
 
 if __name__ == "__main__":
     main()
