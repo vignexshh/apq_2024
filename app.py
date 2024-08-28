@@ -87,7 +87,7 @@ def main():
         st.session_state.auth_status = None
         st.session_state.username = None
         st.sidebar.success("Logged out successfully")
-        st.experimental_rerun()
+        st.rerun()
 
     if login_button:
         auth_status = authenticate_user(username_input, password_input)
@@ -95,7 +95,7 @@ def main():
             st.session_state.auth_status = "Authenticated"
             st.session_state.username = username_input
             st.sidebar.success("Login successful")
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.sidebar.error(auth_status)
 
