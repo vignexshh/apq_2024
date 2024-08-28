@@ -10,7 +10,7 @@ import os
 if not firebase_admin._apps:
     try:
         # Load Firebase credentials
-        cred = credentials.Certificate('medi-rakesh-503bc-firebase-adminsdk-pfk5i-4b99eb4ebf.json')
+        cred = credentials.Certificate('medi-rakesh-503bc-firebase-adminsdk-pfk5i-69f267ec31.json')
         # Initialize Firebase app with credentials and database URL
         firebase_admin.initialize_app(cred, {
             'databaseURL': 'https://medi-rakesh-503bc-default-rtdb.firebaseio.com/'
